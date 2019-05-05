@@ -112,4 +112,7 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+build
+bin
+
 # End of https://www.gitignore.io/api/node,kotlin

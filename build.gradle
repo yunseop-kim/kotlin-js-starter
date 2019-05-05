@@ -1,0 +1,41 @@
+plugins {
+    id 'kotlin2js' version '1.3.21'
+}
+apply plugin: 'kotlin-dce-js'
+
+group 'myGroup'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-js"
+}
+
+task packKotlin(type: Exec) {
+    executable = 'npx'
+    args = [
+            'google-closure-compiler',
+            '--compilation_level=SIMPLE',
+            '--env=BROWSER',
+            '--language_in=ECMASCRIPT5',
+            '--language_out=ECMASCRIPT5',
+            '--js_output_file=build/kotlin-js-min/js/kotlin.js',
+            '--js=build/kotlin-js-min/main/kotlin.js'
+    ]
+}
+task packMain(type: Exec) {
+    executable = 'npx'
+    args = [
+            'google-closure-compiler',
+            '--compilation_level=SIMPLE',
+            '--env=BROWSER',
+            '--language_in=ECMASCRIPT5',
+            '--language_out=ECMASCRIPT5',
+            '--js_output_file=build/kotlin-js-min/js/app.js',
+            '--js=build/kotlin-js-min/main/helloKotlinJS.js'
+    ]
+}
